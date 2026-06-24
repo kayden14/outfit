@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[BRAND NAME] — Spring / Summer 2026</title>
+  <meta name="description" content="An independent fashion house built on restraint. Designed to last." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ─── NAV ───────────────────────────────────────────── -->
+  <header class="site-header" role="banner">
+    <nav class="nav-inner" aria-label="Main navigation">
+      <a href="#" class="nav-logo" aria-label="[BRAND NAME] — Home">[BRAND NAME]<sup>®</sup></a>
+      <ul class="nav-links" role="list">
+        <li><a href="#collection">Collection</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#editorial">Editorial</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ─── MOBILE MENU ───────────────────────────────────── -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true" role="dialog" aria-label="Navigation menu">
+    <button class="mobile-menu__close" aria-label="Close menu">✕ Close</button>
+    <nav>
+      <ul class="mobile-menu__links" role="list">
+        <li><a href="#collection">Collection</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#editorial">Editorial</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <p class="mobile-menu__footer">SS 2026 — Designed to last.</p>
+  </div>
+
+  <main>
+
+    <!-- ─── 1. HERO (SPLIT-SCREEN DESIGN) ───────────────── -->
+    <section class="hero hero--split" id="hero" aria-label="Hero">
+      <!-- Left side: Editorial cinematic frame -->
+      <div class="hero__image-wrap">
+        <img
+          class="hero__image"
+          src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1800&q=85&auto=format&fit=crop"
+          alt="Model wearing structured ivory coat, coastal lighting"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="hero__overlay" aria-hidden="true"></div>
+      </div>
+
+      <!-- Right side: Refined context card -->
+      <div class="hero__sidebar">
+        <div class="hero__sidebar-content">
+          <p class="hero__eyebrow">Spring / Summer 2026</p>
+          <h1 class="hero__title">[BRAND NAME]<br /><em>of Restraint</em></h1>
+          <p class="hero__manifesto-teaser">
+            A quiet dialogue between structured garments and local craft. Made to move, designed to outlast.
+          </p>
+          <a href="#collection" class="hero__cta">
+            <span>Explore Collection</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+        <div class="hero__sidebar-bottom" aria-hidden="true">
+          <span class="hero__coordinates">5.6037° N, 0.1870° W &nbsp;·&nbsp; Accra, Ghana</span>
+          <span class="hero__page-num">01 / 06</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 2. BRAND STATEMENT ───────────────────────────── -->
+    <section class="manifesto reveal" id="about" aria-labelledby="manifesto-heading">
+      <div class="manifesto__inner">
+        <p class="section-tag">About the house</p>
+        <h2 class="manifesto__text" id="manifesto-heading">
+          We make clothes that disappear into the life of the wearer —
+          present, but never demanding attention.
+        </h2>
+        <p class="manifesto__sub">
+          Founded in Accra, Ghana on the principle that true luxury is measured in years worn,
+          not seasons followed. Every piece is designed to outlast the
+          conversation around it.
+        </p>
+        <a href="#collection" class="manifesto__link">Explore the collection →</a>
+      </div>
+    </section>
+
+    <!-- ─── 3. COLLECTION GALLERY ────────────────────────── -->
+    <section class="gallery reveal" id="collection" aria-labelledby="gallery-heading">
+      <div class="container">
+        <header class="section-header">
+          <p class="section-tag">Collection</p>
+          <h2 class="section-title" id="gallery-heading">Spring / Summer 2026</h2>
+        </header>
+
+        <div class="gallery__grid">
+          <!-- Look 01 — tall -->
+          <article class="gallery__item gallery__item--tall">
+            <div class="gallery__media">
+              <img
+                src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&q=80&auto=format&fit=crop&crop=top"
+                alt="Look 01 — Structured linen coat in ecru"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery__caption">
+              <p class="gallery__name">Linen Overcoat</p>
+              <p class="gallery__price">GH₵ 1,200</p>
+            </div>
+          </article>
+
+          <!-- Look 02 — wide -->
+          <article class="gallery__item gallery__item--wide">
+            <div class="gallery__media">
+              <img
+                src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=1400&q=80&auto=format&fit=crop"
+                alt="Look 02 — Draped silk top in ivory"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery__caption">
+              <p class="gallery__name">Draped Silk Top</p>
+              <p class="gallery__price">GH₵ 680</p>
+            </div>
+          </article>
+
+          <!-- Look 03 -->
+          <article class="gallery__item">
+            <div class="gallery__media">
+              <img
+                src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop&crop=top"
+                alt="Look 03 — Tailored trouser in deep charcoal"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery__caption">
+              <p class="gallery__name">Tailored Trouser</p>
+              <p class="gallery__price">GH₵ 540</p>
+            </div>
+          </article>
+
+          <!-- Look 04 -->
+          <article class="gallery__item">
+            <div class="gallery__media">
+              <img
+                src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=800&q=80&auto=format&fit=crop&crop=top"
+                alt="Look 04 — Knit vest in cream"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery__caption">
+              <p class="gallery__name">Ribbed Knit Vest</p>
+              <p class="gallery__price">GH₵ 380</p>
+            </div>
+          </article>
+
+          <!-- Look 05 — tall -->
+          <article class="gallery__item gallery__item--tall">
+            <div class="gallery__media">
+              <img
+                src="https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=900&q=80&auto=format&fit=crop&crop=top"
+                alt="Look 05 — Minimal leather tote in black"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery__caption">
+              <p class="gallery__name">Minimal Tote</p>
+              <p class="gallery__price">GH₵ 920</p>
+            </div>
+          </article>
+
+          <!-- Look 06 -->
+          <article class="gallery__item">
+            <div class="gallery__media">
+              <img
+                src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?w=800&q=80&auto=format&fit=crop&crop=top"
+                alt="Look 06 — Sheer pleated skirt in bone"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery__caption">
+              <p class="gallery__name">Pleated Skirt</p>
+              <p class="gallery__price">GH₵ 460</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 4. FEATURED PIECES ───────────────────────────── -->
+    <section class="featured reveal" aria-labelledby="featured-heading">
+      <div class="container">
+        <header class="section-header">
+          <p class="section-tag">Featured Pieces</p>
+          <h2 class="section-title" id="featured-heading">The Edit</h2>
+        </header>
+
+        <div class="featured__grid">
+          <!-- Card 1 -->
+          <article class="product-card">
+            <div class="product-card__image">
+              <img
+                src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&q=80&auto=format&fit=crop&crop=top"
+                alt="The Bone Coat — model wearing unlined wool coat"
+                loading="lazy"
+              />
+              <div class="product-card__hover-tag">Quick View</div>
+            </div>
+            <div class="product-card__info">
+              <div>
+                <span class="product-card__tag">01</span>
+                <h3 class="product-card__name">The Bone Coat</h3>
+                <p class="product-card__desc">Unlined, mid-weight wool. Single fastening.</p>
+              </div>
+              <p class="product-card__price">GH₵ 1,840</p>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="product-card">
+            <div class="product-card__image">
+              <img
+                src="https://images.unsplash.com/photo-1536766820879-059fec98ec0a?w=800&q=80&auto=format&fit=crop&crop=top"
+                alt="Fluid Trousers — wide leg silk-linen blend"
+                loading="lazy"
+              />
+              <div class="product-card__hover-tag">Quick View</div>
+            </div>
+            <div class="product-card__info">
+              <div>
+                <span class="product-card__tag">02</span>
+                <h3 class="product-card__name">Fluid Trousers</h3>
+                <p class="product-card__desc">Washed silk-linen blend. Wide leg.</p>
+              </div>
+              <p class="product-card__price">GH₵ 640</p>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="product-card">
+            <div class="product-card__image">
+              <img
+                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&q=80&auto=format&fit=crop&crop=top"
+                alt="Gathered Slip Dress — bias cut satin"
+                loading="lazy"
+              />
+              <div class="product-card__hover-tag">Quick View</div>
+            </div>
+            <div class="product-card__info">
+              <div>
+                <span class="product-card__tag">03</span>
+                <h3 class="product-card__name">Gathered Slip</h3>
+                <p class="product-card__desc">100% deadstock satin. Bias cut.</p>
+              </div>
+              <p class="product-card__price">GH₵ 780</p>
+            </div>
+          </article>
+
+          <!-- Card 4 [NEW] -->
+          <article class="product-card">
+            <div class="product-card__image">
+              <img
+                src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&q=80&auto=format&fit=crop&crop=top"
+                alt="Structured Blazer — tailored wool blazer"
+                loading="lazy"
+              />
+              <div class="product-card__hover-tag">Quick View</div>
+            </div>
+            <div class="product-card__info">
+              <div>
+                <span class="product-card__tag">04</span>
+                <h3 class="product-card__name">Structured Blazer</h3>
+                <p class="product-card__desc">Double-breasted Italian wool. Tailored silhouette.</p>
+              </div>
+              <p class="product-card__price">GH₵ 1,450</p>
+            </div>
+          </article>
+
+          <!-- Card 5 [NEW] -->
+          <article class="product-card">
+            <div class="product-card__image">
+              <img
+                src="https://images.unsplash.com/photo-1614975058789-41316d0e2e9c?w=800&q=80&auto=format&fit=crop&crop=top"
+                alt="Knit Silk Vest — fine-gauge silk vest"
+                loading="lazy"
+              />
+              <div class="product-card__hover-tag">Quick View</div>
+            </div>
+            <div class="product-card__info">
+              <div>
+                <span class="product-card__tag">05</span>
+                <h3 class="product-card__name">Knit Silk Vest</h3>
+                <p class="product-card__desc">Fine-gauge mulberry silk. Seamless finish.</p>
+              </div>
+              <p class="product-card__price">GH₵ 520</p>
+            </div>
+          </article>
+
+          <!-- Card 6 [NEW] -->
+          <article class="product-card">
+            <div class="product-card__image">
+              <img
+                src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&q=80&auto=format&fit=crop&crop=top"
+                alt="Pleated Trousers — double pleated front trouser"
+                loading="lazy"
+              />
+              <div class="product-card__hover-tag">Quick View</div>
+            </div>
+            <div class="product-card__info">
+              <div>
+                <span class="product-card__tag">06</span>
+                <h3 class="product-card__name">Pleated Trousers</h3>
+                <p class="product-card__desc">High-waist double-pleated sand wool.</p>
+              </div>
+              <p class="product-card__price">GH₵ 720</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 5. EDITORIAL BREAK ───────────────────────────── -->
+    <section class="editorial reveal" id="editorial" aria-label="Editorial spread">
+      <img
+        class="editorial__image"
+        src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1800&q=85&auto=format&fit=crop"
+        alt="Editorial campaign — model in desert landscape wearing minimal ensemble"
+        loading="lazy"
+      />
+      <div class="editorial__caption-wrap">
+        <div class="editorial__inner">
+          <p class="section-tag editorial__tag">Creative Direction, SS26</p>
+          <blockquote class="editorial__quote">
+            <p>"Clothes that become invisible — only the person remains."</p>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 6. PRESS / QUOTES ────────────────────────────── -->
+    <section class="press reveal" aria-labelledby="press-heading">
+      <div class="container">
+        <header class="section-header">
+          <p class="section-tag">As Seen In</p>
+          <h2 class="section-title" id="press-heading">Press</h2>
+        </header>
+        <div class="press__grid">
+          <blockquote class="press__quote">
+            <p>"Radical restraint. The collection of the season."</p>
+            <cite>— <em>Vogue</em>, March 2026</cite>
+          </blockquote>
+          <blockquote class="press__quote">
+            <p>"A house that speaks in whispers, and is always heard."</p>
+            <cite>— <em>AnOther Magazine</em></cite>
+          </blockquote>
+          <blockquote class="press__quote">
+            <p>"Quietly revolutionary — the anti-trend of the moment."</p>
+            <cite>— <em>Wallpaper*</em>, 2026</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 7. LOOKBOOK STRIP ────────────────────────────── -->
+    <section class="strip reveal" aria-label="Lookbook strip">
+      <div class="strip__track">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75&auto=format&fit=crop&crop=top" alt="Lookbook 01" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=75&auto=format&fit=crop&crop=top" alt="Lookbook 02" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&q=75&auto=format&fit=crop&crop=top" alt="Lookbook 03" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1550639524-a5ae9e79cdd8?w=600&q=75&auto=format&fit=crop&crop=top" alt="Lookbook 04" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=75&auto=format&fit=crop&crop=top" alt="Lookbook 05" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&q=75&auto=format&fit=crop&crop=top" alt="Lookbook 06" loading="lazy" />
+        <!-- Duplicate for seamless loop -->
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75&auto=format&fit=crop&crop=top" alt="" aria-hidden="true" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=75&auto=format&fit=crop&crop=top" alt="" aria-hidden="true" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&q=75&auto=format&fit=crop&crop=top" alt="" aria-hidden="true" loading="lazy" />
+      </div>
+    </section>
+
+    <!-- ─── 8. NEWSLETTER / CONTACT ─────────────────────── -->
+    <section class="contact reveal" id="contact" aria-labelledby="contact-heading">
+      <div class="contact__inner">
+        <p class="section-tag">Stay in touch</p>
+        <h2 class="contact__title" id="contact-heading">
+          Receive the collection<br />before anyone else.
+        </h2>
+        <p class="contact__sub">No noise. One email per drop, nothing more.</p>
+        <form class="contact__form" novalidate>
+          <div class="contact__field">
+            <label for="email-input" class="sr-only">Email address</label>
+            <input type="email" id="email-input" name="email" placeholder="your@email.com" required autocomplete="email" />
+            <button type="submit">Subscribe</button>
+          </div>
+          <p class="contact__privacy">We respect your privacy. Unsubscribe at any time.</p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── FOOTER ────────────────────────────────────────── -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer__inner">
+      <div class="footer__col footer__col--brand">
+        <a href="#" class="footer__logo" aria-label="[BRAND NAME] — Home">[BRAND NAME]<sup>®</sup></a>
+        <p class="footer__tagline">Designed to last.</p>
+      </div>
+      <nav class="footer__col footer__col--nav" aria-label="Footer navigation">
+        <p class="footer__col-label">Navigate</p>
+        <ul role="list">
+          <li><a href="#collection">Collection</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#editorial">Editorial</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#">Stockists</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </nav>
+      <div class="footer__col footer__col--social">
+        <p class="footer__col-label">Follow</p>
+        <ul class="footer__social" role="list">
+          <li><a href="#" aria-label="Instagram">Instagram</a></li>
+          <li><a href="#" aria-label="Pinterest">Pinterest</a></li>
+          <li><a href="#" aria-label="TikTok">TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 [BRAND NAME]. All rights reserved.</p>
+      <p>Accra, Ghana</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
