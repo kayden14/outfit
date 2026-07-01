@@ -241,7 +241,7 @@ export default function Shop() {
             <p className="text-[10px] font-bold uppercase tracking-[0.3em] opacity-50 mb-1">
               New Collection — 2026
             </p>
-            <h1 className="text-5xl md:text-7xl font-[900] tracking-tighter leading-none uppercase">
+            <h1 className="text-4xl md:text-7xl font-[900] tracking-tighter leading-none uppercase">
               TEMEO<br />
               <span className="text-current opacity-40">Outfits</span>
             </h1>
@@ -488,7 +488,7 @@ export default function Shop() {
             <div className="flex items-baseline justify-between mb-8 border-b border-current/10 pb-4">
               <div>
                 <p className="text-[9px] font-extrabold uppercase tracking-[0.3em] opacity-40 mb-1">Collection</p>
-                <h2 className="text-2xl md:text-4xl font-[900] tracking-tighter uppercase">TEMEO Shirts</h2>
+                <h2 className="text-xl md:text-4xl font-[900] tracking-tighter uppercase">TEMEO Shirts</h2>
               </div>
               <span className="text-xs font-bold opacity-40 uppercase">7 styles</span>
             </div>
@@ -512,7 +512,7 @@ export default function Shop() {
             <div className="flex items-baseline justify-between mb-8 pb-4 border-b border-current/10">
               <div>
                 <p className="text-[9px] font-extrabold uppercase tracking-[0.3em] opacity-40 mb-1">Collection</p>
-                <h2 className="text-2xl md:text-4xl font-[900] tracking-tighter uppercase">Temeo Shorts</h2>
+                <h2 className="text-xl md:text-4xl font-[900] tracking-tighter uppercase">Temeo Shorts</h2>
               </div>
               <span className="text-xs font-bold opacity-40 uppercase">3 styles</span>
             </div>
@@ -530,7 +530,7 @@ export default function Shop() {
             <div className="flex items-baseline justify-between mb-8 pb-4 border-b border-current/10">
               <div>
                 <p className="text-[9px] font-extrabold uppercase tracking-[0.3em] opacity-40 mb-1">Collection</p>
-                <h2 className="text-2xl md:text-4xl font-[900] tracking-tighter uppercase">TEMEO Wears</h2>
+                <h2 className="text-xl md:text-4xl font-[900] tracking-tighter uppercase">TEMEO Wears</h2>
               </div>
               <span className="text-xs font-bold opacity-40 uppercase">3 styles</span>
             </div>
@@ -548,7 +548,7 @@ export default function Shop() {
             <div className="flex items-baseline justify-between mb-8 pb-4 border-b border-current/10">
               <div>
                 <p className="text-[9px] font-extrabold uppercase tracking-[0.3em] opacity-40 mb-1">Collection</p>
-                <h2 className="text-2xl md:text-4xl font-[900] tracking-tighter uppercase">TEMEO Tote Bags</h2>
+                <h2 className="text-xl md:text-4xl font-[900] tracking-tighter uppercase">TEMEO Tote Bags</h2>
               </div>
               <span className="text-xs font-bold opacity-40 uppercase">2 styles</span>
             </div>
@@ -564,7 +564,7 @@ export default function Shop() {
           <section ref={lookbookRef} className="py-20 border-t border-current/10" id="section-lookbook">
             <div className="flex flex-col mb-12">
               <p className="text-[9px] font-extrabold uppercase tracking-[0.3em] opacity-40 mb-1">Aesthetic</p>
-              <h2 className="text-3xl md:text-5xl font-[900] tracking-tighter uppercase">Editorial Lookbook</h2>
+              <h2 className="text-2xl md:text-5xl font-[900] tracking-tighter uppercase">Editorial Lookbook</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
               <div className="md:col-span-8 overflow-hidden aspect-[16/9] border border-current/10 bg-neutral-900">
@@ -655,7 +655,7 @@ export default function Shop() {
         {/* ── CTA Strip ── */}
         <section ref={ctaRef} className="py-16 border-t border-current/10 text-center">
           <p className="text-[10px] font-extrabold uppercase tracking-[0.3em] opacity-40 mb-4">Ready to order?</p>
-          <p className="text-3xl md:text-5xl font-[900] tracking-tighter uppercase mb-8">
+          <p className="text-2xl md:text-5xl font-[900] tracking-tighter uppercase mb-8">
             Chat us on<br />WhatsApp
           </p>
           <a

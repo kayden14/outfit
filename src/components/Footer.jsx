@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
             <p className="text-[9px] font-extrabold uppercase tracking-[0.3em] opacity-40 mb-1">Stay in the loop</p>
-            <h2 className="text-2xl md:text-4xl font-[900] tracking-tighter uppercase">
+            <h2 className="text-xl md:text-4xl font-[900] tracking-tighter uppercase">
               Get drop notifications
             </h2>
           </div>
@@ -171,11 +171,11 @@ export default function Footer() {
       <div className="px-4 lg:px-8 pb-10">
         <div className="h-[5px] w-full bg-current mb-6" />
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
-          <p className="text-[2.5rem] md:text-[6vw] leading-[1] font-[900] tracking-tighter text-balance">
+          <p className="text-[2rem] md:text-[6vw] leading-[1] font-[900] tracking-tighter text-balance">
             Made to be worn.<br />
             <span className="opacity-40">Or judged. Or both.</span>
           </p>
-          <p className="text-[6rem] md:text-[12vw] leading-[1] font-[900] tracking-tighter opacity-15 select-none">
+          <p className="text-[4.5rem] md:text-[12vw] leading-[1] font-[900] tracking-tighter opacity-15 select-none">
             ©{String(year).slice(2)}
           </p>
         </div>
