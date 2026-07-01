@@ -13,7 +13,7 @@ export default function ProductCard({ product, onClick }) {
 - Price: GH₵ ${product.price.toFixed(2)}
 
 Please let me know if this is available and how to complete my order!`;
-    const waUrl = `https://wa.me/233547882165?text=${encodeURIComponent(text)}`;
+    const waUrl = `https://wa.me/233201226473?text=${encodeURIComponent(text)}`;
     window.open(waUrl, "_blank", "noreferrer noopener");
   };
 

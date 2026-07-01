@@ -44,7 +44,7 @@ export default function ProductModal({ product, onClose }) {
     }
     addToCart(product, selectedSize);
     const msg = buildWhatsAppMessage();
-    window.open(`https://wa.me/233547882165?text=${msg}`, "_blank", "noreferrer");
+    window.open(`https://wa.me/233201226473?text=${msg}`, "_blank", "noreferrer");
     setAdded(true);
     setTimeout(() => setAdded(false), 3000);
   }

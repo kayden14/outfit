@@ -48,7 +48,7 @@ export default function Header() {
             >
               <span>Free Accra delivery on all orders</span>
               <span className="opacity-40">✦</span>
-              <span>Order via WhatsApp — 0547882165</span>
+              <span>Order via WhatsApp — 0201226473</span>
               <span className="opacity-40">✦</span>
               <span>New Collection — 2026 drop now live</span>
               <span className="opacity-40">✦</span>
@@ -150,7 +150,7 @@ export default function Header() {
 
               {/* WhatsApp CTA pill */}
               <a
-                href="https://wa.me/233547882165"
+                href="https://wa.me/233201226473"
                 target="_blank"
                 rel="noreferrer noopener"
                 id="header-whatsapp-btn"

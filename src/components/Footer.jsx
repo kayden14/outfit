@@ -15,7 +15,7 @@ export default function Footer() {
             </h2>
           </div>
           <a
-            href="https://wa.me/233547882165?text=Hi%20TEMEO%20Collections!%20Please%20add%20me%20to%20your%20drop%20notifications%20list."
+            href="https://wa.me/233201226473?text=Hi%20TEMEO%20Collections!%20Please%20add%20me%20to%20your%20drop%20notifications%20list."
             target="_blank"
             rel="noreferrer noopener"
             className="flex-shrink-0 inline-flex items-center gap-3 bg-[#25D366] text-white font-extrabold text-xs uppercase py-3.5 px-8 tracking-widest hover:bg-[#1ebe5c] active:scale-95 transition-all"
@@ -65,7 +65,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://wa.me/233547882165"
+                href="https://wa.me/233201226473"
                 target="_blank"
                 rel="noreferrer noopener"
                 aria-label="WhatsApp"
@@ -110,7 +110,7 @@ export default function Footer() {
           <div className="flex flex-col gap-3">
             <p className="text-[9px] font-extrabold uppercase tracking-[0.3em] opacity-40 mb-1">Order & Help</p>
             {[
-              { label: "Order via WhatsApp", href: "https://wa.me/233547882165" },
+              { label: "Order via WhatsApp", href: "https://wa.me/233201226473" },
               { label: "Size Guide", href: "#about-info" },
               { label: "Delivery Info", href: "#about-info" },
               { label: "FAQ", href: "#about-info" },
@@ -135,8 +135,8 @@ export default function Footer() {
               Mendskrom<br />
               Accra, Ghana
             </address>
-            <a href="https://wa.me/233547882165" target="_blank" rel="noreferrer noopener" className="text-sm font-bold opacity-70 hover:opacity-100 transition-opacity link-hover max-w-fit mt-2">
-              +233 54 788 2165
+            <a href="https://wa.me/233201226473" target="_blank" rel="noreferrer noopener" className="text-sm font-bold opacity-70 hover:opacity-100 transition-opacity link-hover max-w-fit mt-2">
+              +233 20 122 6473
             </a>
             <a href="mailto:temeocollections@gmail.com" className="text-sm font-medium opacity-70 hover:opacity-100 transition-opacity link-hover max-w-fit">
               temeocollections@gmail.com
