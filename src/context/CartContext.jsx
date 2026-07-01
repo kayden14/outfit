@@ -6,20 +6,33 @@ export function CartProvider({ children }) {
   const [items, setItems] = useState([]);
   const [bagOpen, setBagOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [shopPanelOpen, setShopPanelOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [theme, setThemeState] = useState(() => {
     const saved = localStorage.getItem("theme");
-    return saved === "red" || saved === "white" ? saved : "white";
+    return saved === "red" || saved === "dark" || saved === "light" ? saved : "light";
   });
 
-  // Apply theme attribute to html element
+  // Apply theme attribute to html element and toggle menu-open / loaded helper classes
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
+  useEffect(() => {
+    if (!loading) {
+      document.documentElement.classList.add("loaded");
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    if (menuOpen) {
+      document.documentElement.classList.add("has-menu-open");
+    } else {
+      document.documentElement.classList.remove("has-menu-open");
+    }
+  }, [menuOpen]);
+
   const setTheme = useCallback((newTheme) => {
-    const validTheme = newTheme === "red" || newTheme === "white" ? newTheme : "white";
+    const validTheme = newTheme === "red" || newTheme === "dark" || newTheme === "light" ? newTheme : "light";
     setThemeState(validTheme);
     localStorage.setItem("theme", validTheme);
   }, []);
@@ -69,8 +82,6 @@ export function CartProvider({ children }) {
         setBagOpen,
         menuOpen,
         setMenuOpen,
-        shopPanelOpen,
-        setShopPanelOpen,
         loading,
         setLoading,
         theme,

@@ -1,13 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useCart } from "../context/CartContext";
 
+const WHATSAPP_NUMBER = "233547882165"; // +233 0547882165
+
+function buildWhatsAppMessage(items, total) {
+  const lines = items.map(
+    (item) =>
+      `• ${item.name} (Size: ${item.size}) x${item.qty} — GH₵ ${(item.price * item.qty).toFixed(2)}`
+  );
+  const body = [
+    "Hello TEMEO 👋, I'd like to place an order:",
+    "",
+    ...lines,
+    "",
+    `*Total: GH₵ ${total.toFixed(2)}*`,
+    "",
+    "Please confirm availability and payment details. Thank you!",
+  ].join("\n");
+  return encodeURIComponent(body);
+}
+
 export default function Bag() {
-  const { items, removeFromCart, updateQty, clearCart, total, count, bagOpen, setBagOpen } = useCart();
-  const [checkoutStep, setCheckoutStep] = useState("bag"); // "bag", "checkout", "processing", "success"
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("card");
+  const { items, removeFromCart, updateQty, total, count, bagOpen, setBagOpen } = useCart();
 
   useEffect(() => {
     if (bagOpen) {
@@ -20,284 +34,147 @@ export default function Bag() {
     };
   }, [bagOpen]);
 
-  useEffect(() => {
-    if (!bagOpen) {
-      const timer = setTimeout(() => {
-        setCheckoutStep("bag");
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [bagOpen]);
-
-  const handleCheckoutSubmit = (e) => {
-    e.preventDefault();
-    setCheckoutStep("processing");
-    setTimeout(() => {
-      setCheckoutStep("success");
-      clearCart();
-    }, 2000);
-  };
+  function handleCheckout() {
+    if (items.length === 0) return;
+    const msg = buildWhatsAppMessage(items, total);
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank", "noopener,noreferrer");
+  }
 
   return (
     <>
       {/* Backdrop */}
       <div
-        className={`modal-overlay ${bagOpen ? "open" : ""}`}
+        className={`fixed inset-0 z-50 bg-black/45 backdrop-blur-[2px] transition-opacity duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] ${
+          bagOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
         id="bag-backdrop"
         onClick={() => setBagOpen(false)}
       />
 
       {/* Drawer */}
-      <aside 
-        className={`drawer-panel ${bagOpen ? "open" : ""}`} 
-        id="bag-drawer" 
-        aria-label="Shopping bag"
+      <aside
+        className={`fixed top-0 right-0 bottom-0 z-50 w-full max-w-[460px] bg-cream dark:bg-black text-black dark:text-white border-l border-current/15 flex flex-col shadow-2xl transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] ${
+          bagOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+        id="orders-drawer"
+        aria-label="Your orders"
       >
         {/* Header */}
-        <div className="bag-header">
-          <h2 className="bag-title">
-            {checkoutStep === "bag" && `Bag (${count})`}
-            {checkoutStep === "checkout" && "Checkout"}
-            {checkoutStep === "processing" && "Processing"}
-            {checkoutStep === "success" && "Success"}
-          </h2>
+        <div className="flex items-center justify-between p-6 border-b border-current/10 flex-shrink-0 font-bold uppercase text-sm tracking-wider">
+          <h2 id="orders-title">Orders ({count})</h2>
           <button
-            className="bag-close"
-            id="bag-close-btn"
+            className="p-1 hover:opacity-70 transition-opacity cursor-pointer"
+            id="orders-close-btn"
             onClick={() => setBagOpen(false)}
-            aria-label="Close bag drawer"
+            aria-label="Close orders drawer"
           >
-            <svg style={{ width: '14px', height: '14px' }} viewBox="0 0 16 16" fill="none">
+            <svg className="w-[14px] h-[14px]" viewBox="0 0 16 16" fill="none">
               <line x1="2" y1="2" x2="14" y2="14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               <line x1="14" y1="2" x2="2" y2="14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>
           </button>
         </div>
 
-        {/* ── STEP 1: BAG VIEW ── */}
-        {checkoutStep === "bag" && (
-          <>
-            <div className="bag-items">
-              {items.length === 0 ? (
-                <div className="bag-empty">
-                  <p style={{ fontWeight: 800, fontSize: '0.875rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Your bag is empty</p>
-                  <p style={{ fontSize: '0.75rem', opacity: 0.4, fontStyle: 'italic', textAlign: 'center' }}>
-                    Made to be worn. Or judged. Or both.
-                  </p>
-                </div>
-              ) : (
-                items.map((item) => (
-                  <div 
-                    className="bag-item" 
-                    key={item.key} 
-                    id={`bag-item-${item.key}`}
-                  >
-                    {/* Thumbnail */}
-                    <div className="bag-item-img-container" style={{ width: '4rem', height: '5rem', flexShrink: 0 }}>
-                      {item.image ? (
-                        <img src={item.image} alt={item.name} className="bag-item-img" />
-                      ) : (
-                        <div
-                          style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: item.placeholder?.bg || "#111", borderRadius: '0.25rem' }}
-                        >
-                          <span style={{ fontSize: '10px', fontWeight: 900, color: 'white', textTransform: 'uppercase' }}>
-                            {item.name.slice(0, 2)}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Details */}
-                    <div className="bag-item-details">
-                      <div>
-                        <p className="bag-item-name">{item.name}</p>
-                        <p className="bag-item-size">Size: {item.size}</p>
-                      </div>
-                      
-                      <div className="bag-item-controls">
-                        {/* Qty controls */}
-                        <div className="qty-controls">
-                          <button
-                            className="qty-btn"
-                            id={`qty-minus-${item.key}`}
-                            onClick={() => updateQty(item.key, -1)}
-                            aria-label="Decrease quantity"
-                          >
-                            −
-                          </button>
-                          <span className="qty-value">{item.qty}</span>
-                          <button
-                            className="qty-btn"
-                            id={`qty-plus-${item.key}`}
-                            onClick={() => updateQty(item.key, 1)}
-                            aria-label="Increase quantity"
-                          >
-                            +
-                          </button>
-                        </div>
-
-                        <button
-                          className="bag-item-remove"
-                          id={`remove-${item.key}`}
-                          onClick={() => removeFromCart(item.key)}
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    </div>
-
-                    <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flexShrink: 0 }}>
-                      <span style={{ fontWeight: 800, fontSize: '0.875rem' }}>GH₵ {(item.price * item.qty).toFixed(2)}</span>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-
-            {items.length > 0 && (
-              <div className="bag-footer">
-                <div className="bag-subtotal">
-                  <span className="bag-subtotal-label">Subtotal</span>
-                  <span className="bag-subtotal-value">GH₵ {total.toFixed(2)}</span>
-                </div>
-                <p className="bag-disclaimer">
-                  Shipping, duties, and taxes calculated at checkout.
-                </p>
-                <button 
-                  className="checkout-btn" 
-                  id="checkout-btn"
-                  onClick={() => setCheckoutStep("checkout")}
-                >
-                  Proceed to Checkout
-                </button>
-              </div>
-            )}
-          </>
-        )}
-
-        {/* ── STEP 2: CHECKOUT FORM ── */}
-        {checkoutStep === "checkout" && (
-          <form className="checkout-form" onSubmit={handleCheckoutSubmit}>
-            <div className="bag-items checkout-fields">
-              <div className="checkout-group">
-                <label className="checkout-label">Email Address</label>
-                <input
-                  type="email"
-                  required
-                  placeholder="name@domain.com"
-                  className="checkout-input"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-
-              <div className="checkout-group">
-                <label className="checkout-label">Shipping Name</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Kofi Mensah"
-                  className="checkout-input"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-
-              <div className="checkout-group">
-                <label className="checkout-label">Shipping Address</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Ring Road Central, Accra, Ghana"
-                  className="checkout-input"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-              </div>
-
-              <div className="checkout-group">
-                <label className="checkout-label">Payment Method</label>
-                <div className="checkout-payment-methods">
-                  <label className={`checkout-payment-option ${paymentMethod === "card" ? "active" : ""}`}>
-                    <input
-                      type="radio"
-                      name="payment"
-                      value="card"
-                      checked={paymentMethod === "card"}
-                      onChange={() => setPaymentMethod("card")}
-                    />
-                    <span>Credit Card</span>
-                  </label>
-                  <label className={`checkout-payment-option ${paymentMethod === "momo" ? "active" : ""}`}>
-                    <input
-                      type="radio"
-                      name="payment"
-                      value="momo"
-                      checked={paymentMethod === "momo"}
-                      onChange={() => setPaymentMethod("momo")}
-                    />
-                    <span>Mobile Money (MoMo)</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div className="bag-footer">
-              <div className="bag-subtotal">
-                <span className="bag-subtotal-label">Total</span>
-                <span className="bag-subtotal-value">GH₵ {total.toFixed(2)}</span>
-              </div>
-              <p className="bag-disclaimer" style={{ color: "var(--fg)", opacity: 0.5 }}>
-                Free shipping to Accra & worldwide.
+        {/* Items List */}
+        <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-6 scrollbar-hidden">
+          {items.length === 0 ? (
+            <div className="flex-1 flex flex-col items-center justify-center gap-4 text-center opacity-60">
+              <p className="font-extrabold text-sm uppercase tracking-widest">No orders yet</p>
+              <p className="text-xs italic max-w-[200px]">
+                Pick something from the collection and order via WhatsApp.
               </p>
-              <button 
-                type="submit"
-                className="checkout-btn"
-                id="place-order-btn"
-              >
-                Place Order
-              </button>
-              <button
-                type="button"
-                className="checkout-back"
-                onClick={() => setCheckoutStep("bag")}
-              >
-                Back to Bag
-              </button>
             </div>
-          </form>
-        )}
+          ) : (
+            items.map((item) => (
+              <div
+                className="flex gap-4 pb-6 border-b border-current/10 last:border-0"
+                key={item.key}
+                id={`order-item-${item.key}`}
+              >
+                {/* Thumbnail */}
+                <div className="w-[80px] h-[106px] bg-[#d2cac3] dark:bg-neutral-800 overflow-hidden flex-shrink-0">
+                  {item.image ? (
+                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center font-bold text-xs uppercase opacity-55">
+                      {item.name.slice(0, 2)}
+                    </div>
+                  )}
+                </div>
 
-        {/* ── STEP 3: PROCESSING STATE ── */}
-        {checkoutStep === "processing" && (
-          <div className="checkout-loading">
-            <div className="checkout-spinner" />
-            <p className="checkout-loading-text">Validating transaction...</p>
-          </div>
-        )}
+                {/* Details */}
+                <div className="flex-1 flex flex-col justify-between py-1">
+                  <div>
+                    <div className="flex justify-between font-bold text-sm">
+                      <p className="uppercase tracking-tight">{item.name}</p>
+                      <span>GH₵ {(item.price * item.qty).toFixed(2)}</span>
+                    </div>
+                    <p className="text-[11px] opacity-70 mt-1 uppercase">Size: {item.size}</p>
+                  </div>
 
-        {/* ── STEP 4: SUCCESS VIEW ── */}
-        {checkoutStep === "success" && (
-          <div className="checkout-success">
-            <div className="success-icon-wrap">
-              <svg className="success-icon" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-                <path d="M8 12.5L11 15.5L16 9.5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+                  <div className="flex items-center justify-between mt-4">
+                    {/* Qty controls */}
+                    <div className="flex items-center border border-current/15 rounded-sm">
+                      <button
+                        className="px-2.5 py-1 text-xs hover:bg-current/5 active:scale-95 cursor-pointer font-bold"
+                        id={`qty-minus-${item.key}`}
+                        onClick={() => updateQty(item.key, -1)}
+                        aria-label="Decrease quantity"
+                      >
+                        −
+                      </button>
+                      <span className="px-2 text-xs font-bold">{item.qty}</span>
+                      <button
+                        className="px-2.5 py-1 text-xs hover:bg-current/5 active:scale-95 cursor-pointer font-bold"
+                        id={`qty-plus-${item.key}`}
+                        onClick={() => updateQty(item.key, 1)}
+                        aria-label="Increase quantity"
+                      >
+                        +
+                      </button>
+                    </div>
+
+                    <button
+                      className="text-[11px] font-extrabold uppercase underline hover:opacity-75 cursor-pointer"
+                      id={`remove-${item.key}`}
+                      onClick={() => removeFromCart(item.key)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Footer & Checkout */}
+        {items.length > 0 && (
+          <div className="p-6 border-t border-current/10 flex-shrink-0">
+            <div className="flex justify-between font-bold text-sm mb-2 uppercase">
+              <span>Subtotal</span>
+              <span>GH₵ {total.toFixed(2)}</span>
             </div>
-            <h3 className="success-title">Order Placed</h3>
-            <p className="success-desc">
-              Your conceptual streetwear order is confirmed. A receipt and tracking details have been sent to <strong>{email || "your email"}</strong>.
+            <p className="text-[10px] opacity-60 mb-6 uppercase">
+              Tap below to order via WhatsApp. We'll confirm your order and payment details.
             </p>
-            <p className="success-delivery">
-              Estimated delivery: 2-3 business days in Accra.
-            </p>
+
+            {/* WhatsApp CTA */}
             <button
-              className="checkout-btn success-btn"
-              onClick={() => setBagOpen(false)}
+              className="w-full flex items-center justify-center gap-3 bg-[#25D366] text-white font-extrabold text-xs uppercase py-4 tracking-wider hover:bg-[#1ebe5c] active:scale-[0.99] transition-all cursor-pointer mb-3"
+              id="checkout-btn"
+              onClick={handleCheckout}
             >
-              Continue Exploring
+              {/* WhatsApp icon */}
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+              </svg>
+              Order via WhatsApp
             </button>
+
+            <p className="text-center text-[10px] opacity-50 uppercase tracking-wide">
+              WhatsApp: +233 054 788 2165
+            </p>
           </div>
         )}
       </aside>
