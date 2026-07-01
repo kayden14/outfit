@@ -14,6 +14,7 @@ import tee2 from "../assets/2_20260507_151239_0001.png";
 import tee3 from "../assets/4_20260513_182048_0001.png";
 import tee4 from "../assets/6_20260513_182048_0002.png";
 import temeoWear from "../assets/TEMEO_20260624_193512_0000.jpg";
+import temeoTote from "../assets/temeo_tote_bag.png";
 
 export const products = [
   // ── TEMEO SHIRTS ─────────────────────────────────────────
@@ -194,8 +195,8 @@ export const products = [
     name: "TEMEO Night Tote",
     price: 45,
     category: "TEMEO Tote Bags",
-    image: tee3,
-    backImage: tee4,
+    image: temeoTote,
+    backImage: temeoTote,
     description:
       "TEMEO logo over a moody night cityscape. Printed canvas tote — for late nights, market runs, and everything in between.",
     sizes: ["One Size"],
@@ -207,8 +208,8 @@ export const products = [
     name: "TEMEO Books Tote",
     price: 45,
     category: "TEMEO Tote Bags",
-    image: tee4,
-    backImage: tee3,
+    image: temeoTote,
+    backImage: temeoTote,
     description:
       "\"One place where my feelings are buried is in a stack of books.\" A literary tote for the culture-curious.",
     sizes: ["One Size"],
