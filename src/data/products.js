@@ -165,7 +165,7 @@ export const products = [
   {
     id: "temeo-shorts-white",
     name: "TEMEO Shorts — White",
-    price: 150,
+    price: 200,
     category: "Temeo Shorts",
     image: shorts1,
     backImage: shorts3,
@@ -178,7 +178,7 @@ export const products = [
   {
     id: "temeo-shorts-black",
     name: "TEMEO Shorts — Black",
-    price: 150,
+    price: 200,
     category: "Temeo Shorts",
     image: shorts2,
     backImage: shorts1,
@@ -191,7 +191,7 @@ export const products = [
   {
     id: "temeo-shorts-multi",
     name: "TEMEO Shorts — Multi",
-    price: 150,
+    price: 200,
     category: "Temeo Shorts",
     image: shorts3,
     backImage: shorts2,
