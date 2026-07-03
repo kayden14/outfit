@@ -1,10 +1,19 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { GSM_OPTIONS } from "../data/products";
 
 export default function Admin() {
-  const { addCustomProduct, customProducts, deleteCustomProduct, setView } = useCart();
+  const { addCustomProduct, customProducts, deleteCustomProduct } = useCart();
 
+  // Authentication State
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return sessionStorage.getItem("temeo_admin_logged") === "true";
+  });
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+
+  // Form State
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("TEMEO Shirts");
@@ -14,6 +23,19 @@ export default function Admin() {
   const [detailsStr, setDetailsStr] = useState("Art-grade front print, Regular fit, Pre-shrunk");
   const [imageSrc, setImageSrc] = useState("");
   const [message, setMessage] = useState("");
+
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    if (password === "temeo2026") {
+      setIsAuthenticated(true);
+      sessionStorage.setItem("temeo_admin_logged", "true");
+      setPasswordError(false);
+    } else {
+      setPasswordError(true);
+      setPassword("");
+      setTimeout(() => setPasswordError(false), 3000);
+    }
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -82,6 +104,65 @@ export default function Admin() {
     setTimeout(() => setMessage(""), 5000);
   };
 
+  // ── Render Password Gate if not logged in ──
+  if (!isAuthenticated) {
+    return (
+      <div className="pt-32 pb-20 px-4 flex-1 flex flex-col items-center justify-center text-[var(--fg)]">
+        <div className="w-full max-w-sm border border-current/10 p-8 shadow-2xl bg-[var(--bg)] flex flex-col gap-6">
+          <div>
+            <p className="text-[10px] font-extrabold uppercase tracking-[0.3em] opacity-40 mb-1">
+              Restricted Access
+            </p>
+            <h2 className="text-xl font-[900] tracking-tighter uppercase">
+              Admin Portal
+            </h2>
+          </div>
+
+          <form onSubmit={handlePasswordSubmit} className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
+              <label className="text-[10px] font-bold uppercase tracking-wider opacity-60">
+                Password
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter password"
+                autoFocus
+                className={`w-full bg-transparent border px-4 py-3 text-sm focus:outline-none transition-colors ${
+                  passwordError
+                    ? "border-red-500 placeholder:text-red-400"
+                    : "border-current/25 focus:border-current"
+                }`}
+              />
+              {passwordError && (
+                <p className="text-[10px] font-bold text-red-500 uppercase tracking-wide">
+                  ✕ Incorrect password. Try again.
+                </p>
+              )}
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                type="submit"
+                className="flex-1 bg-current text-[var(--bg)] font-extrabold text-xs uppercase py-3 tracking-widest hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer"
+              >
+                Enter
+              </button>
+              <Link
+                to="/"
+                className="px-5 border border-current/25 text-xs font-extrabold uppercase tracking-widest hover:border-current/60 transition-colors flex items-center justify-center"
+              >
+                Cancel
+              </Link>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Render Admin Upload Page if authenticated ──
   return (
     <div className="pt-32 pb-20 px-4 lg:px-8 max-w-4xl mx-auto w-full flex-1 flex flex-col gap-12 text-[var(--fg)]">
       
@@ -95,12 +176,12 @@ export default function Admin() {
             Upload Product
           </h1>
         </div>
-        <button
-          onClick={() => setView("shop")}
-          className="px-6 py-2.5 border border-current text-[11px] font-extrabold uppercase tracking-widest hover:bg-current hover:text-[var(--bg)] transition-all active:scale-95 cursor-pointer self-start md:self-auto"
+        <Link
+          to="/"
+          className="px-6 py-2.5 border border-current text-[11px] font-extrabold uppercase tracking-widest hover:bg-current hover:text-[var(--bg)] transition-all active:scale-95 cursor-pointer self-start md:self-auto flex items-center justify-center"
         >
           ← Back to Shop
-        </button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-10">

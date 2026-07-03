@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { CartProvider, useCart } from "./context/CartContext";
 import Header from "./components/Header";
 import Bag from "./components/Bag";
@@ -33,7 +34,7 @@ function CustomCursor() {
 
 // Inner component so it can read CartContext
 function AppInner() {
-  const { theme, view } = useCart();
+  const { theme } = useCart();
 
   return (
     <div
@@ -58,17 +59,26 @@ function AppInner() {
       {/* Interactive Custom Cursor */}
       <CustomCursor />
 
-      {/* Main Page View Wrapper */}
-      {view === "admin" ? (
-        <div id="page" data-page="admin" className="flex flex-col flex-1">
-          <Admin />
-        </div>
-      ) : (
-        <div id="page" data-page="home" className="flex flex-col flex-1">
-          <Shop />
-          <Footer />
-        </div>
-      )}
+      {/* Main Page View Wrapper using React Router */}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div id="page" data-page="home" className="flex flex-col flex-1">
+              <Shop />
+              <Footer />
+            </div>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <div id="page" data-page="admin" className="flex flex-col flex-1">
+              <Admin />
+            </div>
+          }
+        />
+      </Routes>
 
       {/* Transition Page Layer Overlay */}
       <div
@@ -87,8 +97,10 @@ function AppInner() {
 
 export default function App() {
   return (
-    <CartProvider>
-      <AppInner />
-    </CartProvider>
+    <Router>
+      <CartProvider>
+        <AppInner />
+      </CartProvider>
+    </Router>
   );
 }

@@ -65,7 +65,6 @@ export function CartProvider({ children }) {
     setItems([]);
   }, []);
 
-  const [view, setView] = useState("shop");
   const [customProducts, setCustomProducts] = useState(() => {
     try {
       const saved = localStorage.getItem("custom_products");
@@ -112,8 +111,6 @@ export function CartProvider({ children }) {
         setLoading,
         theme,
         setTheme,
-        view,
-        setView,
         customProducts,
         addCustomProduct,
         deleteCustomProduct,
