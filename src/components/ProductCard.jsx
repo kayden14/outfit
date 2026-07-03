@@ -79,7 +79,11 @@ Please let me know if this is available and how to complete my order!`;
         <div className="flex items-start justify-between gap-2">
           <p className="font-bold text-sm leading-tight tracking-tight flex-1">{product.name}</p>
           <p className="font-extrabold text-sm whitespace-nowrap flex-shrink-0">
-            GH₵ {product.price.toFixed(2)}
+            {product.gsmOptions ? (
+              <span>from GH₵ {Math.min(...product.gsmOptions.map(o => o.price)).toFixed(2)}</span>
+            ) : (
+              <span>GH₵ {product.price.toFixed(2)}</span>
+            )}
           </p>
         </div>
         <div className="mt-1.5 flex items-center justify-between text-[10px] uppercase tracking-wider opacity-50">

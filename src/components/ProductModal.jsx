@@ -4,10 +4,19 @@ import { useCart } from "../context/CartContext";
 export default function ProductModal({ product, onClose }) {
   const { addToCart } = useCart();
   const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedGsm, setSelectedGsm] = useState(null);
   const [added, setAdded] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState("specifications");
   const [showSizeGuide, setShowSizeGuide] = useState(false);
+
+  // Reset selections whenever modal opens with a new product
+  useEffect(() => {
+    setSelectedGsm(null);
+    setSelectedSize(null);
+    setAdded(false);
+    setError(null);
+  }, [product]);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -19,6 +28,13 @@ export default function ProductModal({ product, onClose }) {
     };
   }, [onClose]);
 
+  const hasGsmOptions = product?.gsmOptions?.length > 0;
+
+  // Resolved price: selected GSM tier price, or product base price
+  const resolvedPrice = hasGsmOptions
+    ? (selectedGsm ? selectedGsm.price : null)
+    : product?.price;
+
   function buildWhatsAppMessage() {
     const lines = [
       `🛍️ *Order Request — TEMEO Collections*`,
@@ -26,24 +42,31 @@ export default function ProductModal({ product, onClose }) {
       `*Product:* ${product.name}`,
       `*Category:* ${product.category}`,
       `*Size:* ${selectedSize}`,
-      `*GSM:* ${product.gsm ? `${product.gsm}gsm` : "—"}`,
-      `*Price:* GH₵ ${product.price.toFixed(2)}`,
+      hasGsmOptions
+        ? `*GSM:* ${selectedGsm.gsm}gsm (${selectedGsm.sublabel})`
+        : (product.gsm ? `*GSM:* ${product.gsm}gsm` : null),
+      `*Price:* GH₵ ${resolvedPrice.toFixed(2)}`,
       ``,
       `*Description:*`,
       product.description,
       ``,
       `Please confirm availability and payment details. Thank you! 🙏`,
-    ];
+    ].filter(Boolean);
     return encodeURIComponent(lines.join("\n"));
   }
 
   function handleOrderWhatsApp() {
     if (!selectedSize) {
-      setError(true);
-      setTimeout(() => setError(false), 2000);
+      setError("size");
+      setTimeout(() => setError(null), 2500);
       return;
     }
-    addToCart(product, selectedSize);
+    if (hasGsmOptions && !selectedGsm) {
+      setError("gsm");
+      setTimeout(() => setError(null), 2500);
+      return;
+    }
+    addToCart({ ...product, price: resolvedPrice }, selectedSize);
     const msg = buildWhatsAppMessage();
     window.open(`https://wa.me/233547882165?text=${msg}`, "_blank", "noreferrer");
     setAdded(true);
@@ -98,6 +121,7 @@ export default function ProductModal({ product, onClose }) {
 
         {/* Details Container */}
         <div className="p-6 flex flex-col gap-6">
+
           {/* Metadata Block */}
           <div>
             <span className="text-[10px] font-extrabold uppercase tracking-widest opacity-60">
@@ -106,21 +130,22 @@ export default function ProductModal({ product, onClose }) {
             <h1 className="text-2xl font-[900] tracking-tighter uppercase mt-1">
               {product.name}
             </h1>
-            <div className="flex items-center gap-3 mt-2">
-              <p className="text-lg font-bold">
-                GH₵ {product.price.toFixed(2)}
-              </p>
-              {product.gsm && (
+            <div className="flex items-baseline gap-3 mt-2">
+              {resolvedPrice != null ? (
+                <p className="text-lg font-bold transition-all duration-300">
+                  GH₵ {resolvedPrice.toFixed(2)}
+                </p>
+              ) : (
+                <p className="text-lg font-bold opacity-40 italic text-sm">
+                  Select GSM for price ↓
+                </p>
+              )}
+              {hasGsmOptions && selectedGsm && (
                 <span className="text-[9px] font-extrabold uppercase tracking-widest border border-current/25 px-2 py-0.5 opacity-60">
-                  {product.gsm}gsm
+                  {selectedGsm.gsm}gsm
                 </span>
               )}
             </div>
-            {product.gsm && (
-              <p className="text-[10px] opacity-40 mt-1 uppercase tracking-wider">
-                260gsm → GH₵250 · 320gsm → GH₵300 · 400gsm → GH₵350
-              </p>
-            )}
           </div>
 
           {/* Description */}
@@ -128,7 +153,49 @@ export default function ProductModal({ product, onClose }) {
             {product.description}
           </p>
 
-          {/* Size Selector */}
+          {/* ── GSM Selector — shirts only ── */}
+          {hasGsmOptions && (
+            <div>
+              <div className="flex justify-between items-center mb-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider opacity-60">
+                  Select GSM / Thickness
+                </span>
+                {error === "gsm" && (
+                  <span className="text-[10px] font-extrabold text-red-500 uppercase tracking-wide animate-pulse">
+                    ✕ Choose a GSM first
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                {product.gsmOptions.map((opt) => (
+                  <button
+                    key={opt.gsm}
+                    id={`gsm-btn-${product.id}-${opt.gsm}`}
+                    onClick={() => setSelectedGsm(opt)}
+                    className={`flex items-center justify-between w-full px-4 py-3 border text-left cursor-pointer transition-all duration-200 active:scale-[0.98] ${
+                      selectedGsm?.gsm === opt.gsm
+                        ? "border-current bg-current/5"
+                        : "border-current/15 opacity-60 hover:opacity-95 hover:border-current/40"
+                    }`}
+                  >
+                    <div className="flex flex-col gap-0.5">
+                      <span className="text-xs font-extrabold uppercase tracking-wider">
+                        {opt.label}
+                      </span>
+                      <span className="text-[10px] opacity-60">
+                        {opt.sublabel}
+                      </span>
+                    </div>
+                    <span className={`text-sm font-bold transition-all duration-200 ${selectedGsm?.gsm === opt.gsm ? "scale-105" : ""}`}>
+                      GH₵ {opt.price.toFixed(2)}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ── Size Selector ── */}
           <div>
             <div className="flex justify-between items-center mb-2.5">
               <span className="text-[10px] font-bold uppercase tracking-wider opacity-60">
@@ -181,7 +248,7 @@ export default function ProductModal({ product, onClose }) {
                 </button>
               ))}
             </div>
-            {error && (
+            {error === "size" && (
               <p className="text-[10px] font-extrabold text-red-600 dark:text-red-500 mt-2 uppercase tracking-wide">
                 ✕ Please select a size before placing your order.
               </p>
@@ -216,7 +283,7 @@ export default function ProductModal({ product, onClose }) {
             )}
           </button>
 
-          {/* Specifications/Tabs Accordion */}
+          {/* Specifications / Tabs */}
           <div className="border-t border-current/10 pt-4 mt-2">
             <div className="flex gap-4 border-b border-current/10 pb-2 mb-4 text-xs font-extrabold uppercase tracking-wider">
               <button
@@ -245,10 +312,12 @@ export default function ProductModal({ product, onClose }) {
               </button>
             </div>
 
-            {/* Accordion Tab Content */}
             <div className="text-xs leading-relaxed opacity-80 min-h-[60px]">
               {activeTab === "specifications" && (
                 <ul className="list-disc pl-4 flex flex-col gap-1">
+                  {hasGsmOptions && selectedGsm && (
+                    <li><strong>{selectedGsm.gsm}gsm</strong> — {selectedGsm.sublabel}</li>
+                  )}
                   {product.details.map((d, i) => (
                     <li key={i}>{d}</li>
                   ))}
