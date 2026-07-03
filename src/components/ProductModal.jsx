@@ -26,6 +26,7 @@ export default function ProductModal({ product, onClose }) {
       `*Product:* ${product.name}`,
       `*Category:* ${product.category}`,
       `*Size:* ${selectedSize}`,
+      `*GSM:* ${product.gsm ? `${product.gsm}gsm` : "—"}`,
       `*Price:* GH₵ ${product.price.toFixed(2)}`,
       ``,
       `*Description:*`,
@@ -44,7 +45,7 @@ export default function ProductModal({ product, onClose }) {
     }
     addToCart(product, selectedSize);
     const msg = buildWhatsAppMessage();
-    window.open(`https://wa.me/233201226473?text=${msg}`, "_blank", "noreferrer");
+    window.open(`https://wa.me/233547882165?text=${msg}`, "_blank", "noreferrer");
     setAdded(true);
     setTimeout(() => setAdded(false), 3000);
   }
@@ -105,9 +106,21 @@ export default function ProductModal({ product, onClose }) {
             <h1 className="text-2xl font-[900] tracking-tighter uppercase mt-1">
               {product.name}
             </h1>
-            <p className="text-lg font-bold mt-2">
-              GH₵ {product.price.toFixed(2)}
-            </p>
+            <div className="flex items-center gap-3 mt-2">
+              <p className="text-lg font-bold">
+                GH₵ {product.price.toFixed(2)}
+              </p>
+              {product.gsm && (
+                <span className="text-[9px] font-extrabold uppercase tracking-widest border border-current/25 px-2 py-0.5 opacity-60">
+                  {product.gsm}gsm
+                </span>
+              )}
+            </div>
+            {product.gsm && (
+              <p className="text-[10px] opacity-40 mt-1 uppercase tracking-wider">
+                260gsm → GH₵250 · 320gsm → GH₵300 · 400gsm → GH₵350
+              </p>
+            )}
           </div>
 
           {/* Description */}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
+import temeoLogo from "../assets/TEMEO.png";
 
 export default function Header() {
   const { count, setBagOpen, theme, setTheme, setMenuOpen } = useCart();
@@ -46,9 +47,9 @@ export default function Header() {
               key={i}
               className="inline-flex items-center gap-6 pr-12 text-[9px] font-extrabold uppercase tracking-[0.3em] mix-blend-difference text-white"
             >
-              <span>Free Accra delivery on all orders</span>
+              <span>Free delivery for the first 20 orders</span>
               <span className="opacity-40">✦</span>
-              <span>Order via WhatsApp — 0201226473</span>
+              <span>Order via WhatsApp — 0547882165</span>
               <span className="opacity-40">✦</span>
               <span>New Collection — 2026 drop now live</span>
               <span className="opacity-40">✦</span>
@@ -82,15 +83,14 @@ export default function Header() {
             {/* ── Brand Logo ── */}
             <a
               href="/"
-              aria-label="TEMEO Outfits — Home"
+              aria-label="TEMEO Collections — Home"
               className="flex-shrink-0 flex items-center gap-2 group"
             >
-              <span
-                className="font-[900] text-[1.15rem] tracking-[-0.05em] uppercase leading-none text-white transition-opacity duration-300 group-hover:opacity-75"
-              >
-                TEMEO
-                <span className="opacity-40 font-bold"> Outfits</span>
-              </span>
+              <img
+                src={temeoLogo}
+                alt="TEMEO Collections"
+                className="h-8 w-auto object-contain brightness-0 invert transition-opacity duration-300 group-hover:opacity-75"
+              />
             </a>
 
             {/* ── Desktop Centre Nav ── */}
@@ -150,7 +150,7 @@ export default function Header() {
 
               {/* WhatsApp CTA pill */}
               <a
-                href="https://wa.me/233201226473"
+                href="https://wa.me/233547882165"
                 target="_blank"
                 rel="noreferrer noopener"
                 id="header-whatsapp-btn"

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useCart } from "../context/CartContext";
 
-const WHATSAPP_NUMBER = "233201226473"; // +233 0201226473
+const WHATSAPP_NUMBER = "233547882165"; // +233 054 788 2165
 
 function buildWhatsAppMessage(items, total) {
   const lines = items.map(
