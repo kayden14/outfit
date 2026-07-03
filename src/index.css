@@ -107,11 +107,6 @@
   background: #0a0a09;
 }
 
-/* ── Dark: ticker bar ── */
-[data-theme="dark"] #ticker-bar {
-  background-color: #1C1C1A !important;
-  border-bottom: 1px solid rgba(237,228,212,0.06);
-}
 
 /* ── Dark: FAQ table ── */
 [data-theme="dark"] table {
@@ -265,16 +260,7 @@ html.loaded #header {
   transform: translateY(0%);
 }
 
-/* Ticker bar entrance */
-#ticker-bar {
-  transition: opacity 2s;
-  transition-timing-function: var(--ease-out-extreme);
-  opacity: 0;
-  transition-delay: .3s;
-}
-html.loaded #ticker-bar {
-  opacity: 1;
-}
+
 
 html #header>div {
   transition: color .4s ease-in-out;
