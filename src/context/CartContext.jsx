@@ -65,6 +65,32 @@ export function CartProvider({ children }) {
     setItems([]);
   }, []);
 
+  const [view, setView] = useState("shop");
+  const [customProducts, setCustomProducts] = useState(() => {
+    try {
+      const saved = localStorage.getItem("custom_products");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const addCustomProduct = useCallback((newProduct) => {
+    setCustomProducts((prev) => {
+      const updated = [...prev, newProduct];
+      localStorage.setItem("custom_products", JSON.stringify(updated));
+      return updated;
+    });
+  }, []);
+
+  const deleteCustomProduct = useCallback((id) => {
+    setCustomProducts((prev) => {
+      const updated = prev.filter((p) => p.id !== id);
+      localStorage.setItem("custom_products", JSON.stringify(updated));
+      return updated;
+    });
+  }, []);
+
   const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
   const count = items.reduce((sum, i) => sum + i.qty, 0);
 
@@ -86,6 +112,11 @@ export function CartProvider({ children }) {
         setLoading,
         theme,
         setTheme,
+        view,
+        setView,
+        customProducts,
+        addCustomProduct,
+        deleteCustomProduct,
       }}
     >
       {children}

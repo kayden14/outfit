@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Bag from "./components/Bag";
 import Footer from "./components/Footer";
 import Shop from "./pages/Shop";
+import Admin from "./pages/Admin";
 import Preloader from "./components/Preloader";
 import MobileMenu from "./components/MobileMenu";
 
@@ -32,7 +33,7 @@ function CustomCursor() {
 
 // Inner component so it can read CartContext
 function AppInner() {
-  const { theme } = useCart();
+  const { theme, view } = useCart();
 
   return (
     <div
@@ -58,10 +59,16 @@ function AppInner() {
       <CustomCursor />
 
       {/* Main Page View Wrapper */}
-      <div id="page" data-page="home" className="flex flex-col flex-1">
-        <Shop />
-        <Footer />
-      </div>
+      {view === "admin" ? (
+        <div id="page" data-page="admin" className="flex flex-col flex-1">
+          <Admin />
+        </div>
+      ) : (
+        <div id="page" data-page="home" className="flex flex-col flex-1">
+          <Shop />
+          <Footer />
+        </div>
+      )}
 
       {/* Transition Page Layer Overlay */}
       <div

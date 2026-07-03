@@ -20,6 +20,8 @@ Please let me know if this is available and how to complete my order!`;
     window.open(waUrl, "_blank", "noreferrer noopener");
   };
 
+  const isShorts = product.category?.toLowerCase().includes("shorts");
+
   return (
     <a
       className="group block cursor-pointer select-none"
@@ -35,15 +37,17 @@ Please let me know if this is available and how to complete my order!`;
         {product.image && (
           <img
             alt={product.name}
-            className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-105"
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${
+              isShorts ? "" : "group-hover:scale-105"
+            }`}
             loading="lazy"
             src={product.image}
             draggable="false"
           />
         )}
 
-        {/* Back image — clip-path reveal on hover */}
-        {product.backImage && (
+        {/* Back image — clip-path reveal on hover (disabled for shorts) */}
+        {product.backImage && !isShorts && (
           <img
             alt={`${product.name} — alternate view`}
             className="product-img-back"

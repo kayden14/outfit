@@ -3,7 +3,7 @@ import { useCart } from "../context/CartContext";
 import temeoLogo from "../assets/temeo_logo.png";
 
 export default function Header() {
-  const { count, setBagOpen, theme, setTheme, setMenuOpen } = useCart();
+  const { count, setBagOpen, theme, setTheme, setMenuOpen, setView, view } = useCart();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -122,6 +122,19 @@ export default function Header() {
               </button>
 
 
+
+              {/* Admin upload link — subtle, for owner use */}
+              <button
+                onClick={() => setView(view === "admin" ? "shop" : "admin")}
+                title={view === "admin" ? "Back to Shop" : "Owner Upload Panel"}
+                className="hidden md:flex items-center gap-1.5 text-white/40 hover:text-white/80 text-[10px] font-extrabold uppercase tracking-widest transition-colors duration-200 cursor-pointer"
+              >
+                {view === "admin" ? (
+                  <span>← Shop</span>
+                ) : (
+                  <span>Upload ↑</span>
+                )}
+              </button>
 
               {/* Mobile hamburger */}
               <button

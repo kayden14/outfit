@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { products } from "../data/products";
+import { useCart } from "../context/CartContext";
 import ProductCard from "../components/ProductCard";
 import ProductModal from "../components/ProductModal";
 
@@ -160,6 +161,7 @@ function FAQAccordionItem({ title, children }) {
 export default function Shop() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [activeCategory, setActiveCategory] = useState("all");
+  const { customProducts } = useCart();
 
   // Slideshow state
   const [activeSlide, setActiveSlide] = useState(0);
@@ -226,6 +228,20 @@ export default function Shop() {
     if (!p) return null;
     return <ProductCard product={p} onClick={setSelectedProduct} />;
   };
+
+  // Custom products per category
+  const customShirts = customProducts.filter(p =>
+    p.category?.toLowerCase().includes("shirt")
+  );
+  const customShorts = customProducts.filter(p =>
+    p.category?.toLowerCase().includes("short")
+  );
+  const customWears = customProducts.filter(p =>
+    p.category?.toLowerCase().includes("wear")
+  );
+  const customTotes = customProducts.filter(p =>
+    p.category?.toLowerCase().includes("tote")
+  );
 
   return (
     <main className="flex-1" id="shop-main">
@@ -491,7 +507,7 @@ export default function Shop() {
                 <p className="text-[9px] font-extrabold uppercase tracking-[0.3em] opacity-40 mb-1">Collection</p>
                 <h2 className="text-xl md:text-4xl font-[900] tracking-tighter uppercase">TEMEO Shirts</h2>
               </div>
-              <span className="text-xs font-bold opacity-40 uppercase">7 styles</span>
+              <span className="text-xs font-bold opacity-40 uppercase">{7 + customShirts.length} styles</span>
             </div>
             <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:gap-6">
               {renderCard("temeo-kaws-dark")}
@@ -503,6 +519,9 @@ export default function Shop() {
               {renderCard("temeo-kaws-squad")}
               {renderCard("temeo-mickey")}
               {renderCard("temeo-kaws-white")}
+              {customShirts.map(p => (
+                <ProductCard key={p.id} product={p} onClick={setSelectedProduct} />
+              ))}
             </div>
           </section>
         )}
@@ -515,12 +534,15 @@ export default function Shop() {
                 <p className="text-[9px] font-extrabold uppercase tracking-[0.3em] opacity-40 mb-1">Collection</p>
                 <h2 className="text-xl md:text-4xl font-[900] tracking-tighter uppercase">Temeo Shorts</h2>
               </div>
-              <span className="text-xs font-bold opacity-40 uppercase">3 styles</span>
+              <span className="text-xs font-bold opacity-40 uppercase">{3 + customShorts.length} styles</span>
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:gap-6">
               {renderCard("temeo-shorts-white")}
               {renderCard("temeo-shorts-black")}
               {renderCard("temeo-shorts-multi")}
+              {customShorts.map(p => (
+                <ProductCard key={p.id} product={p} onClick={setSelectedProduct} />
+              ))}
             </div>
           </section>
         )}
@@ -533,12 +555,15 @@ export default function Shop() {
                 <p className="text-[9px] font-extrabold uppercase tracking-[0.3em] opacity-40 mb-1">Collection</p>
                 <h2 className="text-xl md:text-4xl font-[900] tracking-tighter uppercase">TEMEO Wears</h2>
               </div>
-              <span className="text-xs font-bold opacity-40 uppercase">3 styles</span>
+              <span className="text-xs font-bold opacity-40 uppercase">{3 + customWears.length} styles</span>
             </div>
             <div className="grid grid-cols-1 gap-3 md:grid-cols-3 lg:gap-6">
               {renderCard("temeo-wateva-cream")}
               {renderCard("temeo-classic-logo")}
               {renderCard("temeo-gallery-tee")}
+              {customWears.map(p => (
+                <ProductCard key={p.id} product={p} onClick={setSelectedProduct} />
+              ))}
             </div>
           </section>
         )}
@@ -587,11 +612,14 @@ export default function Shop() {
                 <p className="text-[9px] font-extrabold uppercase tracking-[0.3em] opacity-40 mb-1">Collection</p>
                 <h2 className="text-xl md:text-4xl font-[900] tracking-tighter uppercase">TEMEO Tote Bags</h2>
               </div>
-              <span className="text-xs font-bold opacity-40 uppercase">2 styles</span>
+              <span className="text-xs font-bold opacity-40 uppercase">{2 + customTotes.length} styles</span>
             </div>
             <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:gap-6">
               {renderCard("temeo-tote-night")}
               {renderCard("temeo-tote-books")}
+              {customTotes.map(p => (
+                <ProductCard key={p.id} product={p} onClick={setSelectedProduct} />
+              ))}
             </div>
           </section>
         )}
