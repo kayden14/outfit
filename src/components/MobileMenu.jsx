@@ -1,4 +1,5 @@
 import { useCart } from "../context/CartContext";
+import temeoLogo from "../assets/temeo_logo.png";
 
 export default function MobileMenu() {
   const { menuOpen, setMenuOpen, setBagOpen, count, theme, setTheme } = useCart();
@@ -95,7 +96,7 @@ export default function MobileMenu() {
         {/* Footer Brand Info */}
         <div className="flex justify-between items-end text-xs font-bold uppercase">
           <div className="flex flex-col gap-1">
-            <span className="font-black uppercase tracking-tighter leading-tight">TEMEO<br /><span className="opacity-50 text-[10px] font-bold">Outfits</span></span>
+            <img src={temeoLogo} alt="TEMEO Collections" className="h-7 w-auto object-contain" style={{ filter: "brightness(0)" }} />
             <p className="opacity-50 text-[10px] mt-1">All rights reserved © 2026</p>
           </div>
           <div className="text-right text-[10px] opacity-75">

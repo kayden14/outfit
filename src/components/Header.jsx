@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
-import temeoLogo from "../assets/TEMEO.png";
+import temeoLogo from "../assets/temeo_logo.png";
 
 export default function Header() {
   const { count, setBagOpen, theme, setTheme, setMenuOpen } = useCart();
@@ -89,7 +89,8 @@ export default function Header() {
               <img
                 src={temeoLogo}
                 alt="TEMEO Collections"
-                className="h-8 w-auto object-contain brightness-0 invert transition-opacity duration-300 group-hover:opacity-75"
+                className="h-10 w-auto object-contain transition-opacity duration-300 group-hover:opacity-70"
+                style={{ filter: "brightness(0) invert(1)" }}
               />
             </a>
 
