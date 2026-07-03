@@ -20,7 +20,10 @@ Please let me know if this is available and how to complete my order!`;
     window.open(waUrl, "_blank", "noreferrer noopener");
   };
 
-  const isShorts = product.category?.toLowerCase().includes("shorts");
+  // Shirts and Shorts show a static, no-flip image on hover
+  const isStaticCard =
+    product.category?.toLowerCase().includes("shirt") ||
+    product.category?.toLowerCase().includes("short");
 
   return (
     <a
@@ -33,12 +36,12 @@ Please let me know if this is available and how to complete my order!`;
         {/* Placeholder background */}
         <div className="absolute inset-0 bg-[#d2cac3] dark:bg-neutral-800" />
 
-        {/* Front Image */}
+        {/* Front Image — no scale/hover for shirts & shorts */}
         {product.image && (
           <img
             alt={product.name}
             className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${
-              isShorts ? "" : "group-hover:scale-105"
+              isStaticCard ? "" : "group-hover:scale-105"
             }`}
             loading="lazy"
             src={product.image}
@@ -46,8 +49,8 @@ Please let me know if this is available and how to complete my order!`;
           />
         )}
 
-        {/* Back image — clip-path reveal on hover (disabled for shorts) */}
-        {product.backImage && !isShorts && (
+        {/* Back image — clip-path reveal on hover (disabled for shirts & shorts) */}
+        {product.backImage && !isStaticCard && (
           <img
             alt={`${product.name} — alternate view`}
             className="product-img-back"

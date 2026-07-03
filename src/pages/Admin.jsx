@@ -62,7 +62,7 @@ export default function Admin() {
       name: name.trim(),
       price: priceNum,
       category,
-      image: imageSrc,
+      image: imageSrc,           // base64 data URL — renders directly in <img src>
       description: description.trim() || "Premium custom apparel item from TEMEO Collections.",
       sizes,
       details,
@@ -70,14 +70,15 @@ export default function Admin() {
       ...(hasGsm ? { gsmOptions: GSM_OPTIONS } : {}),
     };
 
+    // Save first, then reset the form
     addCustomProduct(newProduct);
-    setMessage("✓ Product successfully uploaded and live!");
-    
-    // Reset form
+
     setName("");
     setDescription("");
     setImageSrc("");
-    setMessage("✓ Product uploaded! Feel free to upload more.");
+    setDetailsStr("Art-grade front print, Regular fit, Pre-shrunk");
+    setSizes(["S", "M", "L", "XL", "XXL"]);
+    setMessage("✓ Product uploaded and live on the shop!");
     setTimeout(() => setMessage(""), 5000);
   };
 
