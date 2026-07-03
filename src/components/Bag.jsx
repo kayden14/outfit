@@ -53,7 +53,7 @@ export default function Bag() {
 
       {/* Drawer */}
       <aside
-        className={`fixed top-0 right-0 bottom-0 z-50 w-full max-w-[460px] bg-cream dark:bg-black text-black dark:text-white border-l border-current/15 flex flex-col shadow-2xl transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] ${
+        className={`fixed top-0 right-0 bottom-0 z-50 w-full max-w-[460px] bg-[var(--bg)] text-[var(--fg)] border-l border-current/15 flex flex-col shadow-2xl transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] ${
           bagOpen ? "translate-x-0" : "translate-x-full"
         }`}
         id="orders-drawer"

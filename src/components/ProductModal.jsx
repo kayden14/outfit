@@ -9,6 +9,18 @@ export default function ProductModal({ product, onClose }) {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState("specifications");
   const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Trigger animation after mounting
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  const handleClose = () => {
+    setMounted(false);
+    setTimeout(onClose, 500); // match transition duration
+  };
 
   // Reset selections whenever modal opens with a new product
   useEffect(() => {
@@ -20,7 +32,7 @@ export default function ProductModal({ product, onClose }) {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    const onKey = (e) => e.key === "Escape" && onClose();
+    const onKey = (e) => e.key === "Escape" && handleClose();
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = "";
@@ -79,14 +91,18 @@ export default function ProductModal({ product, onClose }) {
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 z-50 bg-black/45 backdrop-blur-[2px] transition-opacity duration-350 ease-out"
+        className={`fixed inset-0 z-50 bg-black/45 backdrop-blur-[2px] transition-opacity duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] ${
+          mounted ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
         id="product-modal-backdrop"
-        onClick={onClose}
+        onClick={handleClose}
       />
 
       {/* Slide-out Panel */}
       <aside
-        className="fixed top-0 right-0 bottom-0 z-50 w-full max-w-[460px] bg-cream dark:bg-black text-black dark:text-white border-l border-current/15 flex flex-col shadow-2xl transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] translate-x-0 overflow-y-auto scrollbar-hidden"
+        className={`fixed top-0 right-0 bottom-0 z-50 w-full max-w-[460px] bg-[var(--bg)] text-[var(--fg)] border-l border-current/15 flex flex-col shadow-2xl transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] overflow-y-auto scrollbar-hidden ${
+          mounted ? "translate-x-0" : "translate-x-full"
+        }`}
         id="product-modal-panel"
         role="dialog"
         aria-modal="true"
@@ -98,7 +114,7 @@ export default function ProductModal({ product, onClose }) {
           <button
             className="p-1 hover:opacity-70 transition-opacity cursor-pointer"
             id="modal-close-btn"
-            onClick={onClose}
+            onClick={handleClose}
             aria-label="Close product panel"
           >
             <svg className="w-[14px] h-[14px]" viewBox="0 0 16 16" fill="none">

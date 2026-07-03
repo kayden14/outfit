@@ -18,7 +18,7 @@ export default function MobileMenu() {
 
   return (
     <div
-      className={`fixed inset-0 z-40 flex flex-col justify-between p-6 bg-cream dark:bg-black text-black dark:text-white transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] ${
+      className={`fixed inset-0 z-40 flex flex-col justify-between p-6 bg-[var(--bg)] text-[var(--fg)] transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] ${
         menuOpen ? "translate-y-0" : "-translate-y-full"
       }`}
     >

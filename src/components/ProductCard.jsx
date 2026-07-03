@@ -7,10 +7,13 @@ export default function ProductCard({ product, onClick }) {
   const handleQuickOrder = (e) => {
     e.stopPropagation();
     e.preventDefault();
+    const priceString = product.gsmOptions
+      ? `from GH₵ ${Math.min(...product.gsmOptions.map(o => o.price)).toFixed(2)}`
+      : `GH₵ ${product.price.toFixed(2)}`;
     const text = `Hi TEMEO Collections! I'd like to place a quick order for:
 - Product: ${product.name}
 - Category: ${product.category}
-- Price: GH₵ ${product.price.toFixed(2)}
+- Price: ${priceString}
 
 Please let me know if this is available and how to complete my order!`;
     const waUrl = `https://wa.me/233547882165?text=${encodeURIComponent(text)}`;
